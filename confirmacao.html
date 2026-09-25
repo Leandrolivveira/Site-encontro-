@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encontro Agendado ❤️</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff7eb3,#ff758c);
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:450px;
+    text-align:center;
+}
+
+h1{
+    color:white;
+    margin-bottom:25px;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.info{
+    margin:20px 0;
+    font-size:1.1rem;
+    color:#333;
+}
+
+.valor{
+    color:#ff4f7a;
+    font-weight:bold;
+}
+
+.heart{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.frase{
+    margin-top:20px;
+    color:#666;
+    font-style:italic;
+}
+
+#baixar{
+    margin-top:25px;
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#ff4f7a;
+    color:white;
+    font-size:1rem;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+#baixar:hover{
+    transform:scale(1.03);
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>ENCONTRO AGENDADO ❤️</h1>
+
+    <div class="card">
+
+        <div class="heart">🥰</div>
+
+        <div class="info">
+            <strong>📅 Data:</strong><br>
+            <span class="valor" id="data"></span>
+        </div>
+
+        <div class="info">
+            <strong>🕒 Horário:</strong><br>
+            <span class="valor" id="hora"></span>
+        </div>
+
+        <div class="info">
+            <strong>📍 Local:</strong><br>
+            <span class="valor" id="local"></span>
+        </div>
+
+        <div class="frase">
+            Mal posso esperar para passar esse momento com você ❤️
+        </div>
+
+        <button id="baixar" onclick="baixarPDF()">
+            📄 BAIXAR CONVITE EM PDF
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Biblioteca jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+
+const data = localStorage.getItem("dataEncontro");
+const hora = localStorage.getItem("horaEncontro");
+const local = localStorage.getItem("localEncontro");
+
+document.getElementById("data").textContent = data || "-";
+document.getElementById("hora").textContent = hora || "-";
+document.getElementById("local").textContent = local || "-";
+
+async function baixarPDF(){
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    doc.setFontSize(22);
+    doc.text("Convite de Encontro", 20, 30);
+
+    doc.setFontSize(14);
+
+    doc.text(`Data: ${data}`, 20, 60);
+    doc.text(`Horario: ${hora}`, 20, 80);
+    doc.text(`Local: ${local}`, 20, 100);
+
+    doc.text(
+        "Este encontro foi oficialmente marcado com muito amor.",
+        20,
+        130
+    );
+
+    doc.text(
+        "Mal posso esperar para te ver meu amor",
+        20,
+        150
+    );
+
+    doc.save("nosso-encontro.pdf");
+}
+
+</script>
+
+</body>
+</html>

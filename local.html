@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escolha o Local ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#ff7eb3,#ff758c);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:500px;
+    text-align:center;
+}
+
+h1{
+    color:white;
+    margin-bottom:25px;
+    font-size:1.8rem;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.local{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    cursor:pointer;
+    transition:.3s;
+    border:3px solid transparent;
+}
+
+.local:hover{
+    transform:scale(1.05);
+}
+
+.local.selecionado{
+    border-color:#ff4f7a;
+}
+
+.emoji{
+    font-size:2.5rem;
+    margin-bottom:10px;
+}
+
+.nome{
+    font-weight:bold;
+}
+
+.outro-local{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.outro-local label{
+    display:block;
+    text-align:left;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+.outro-local input{
+    width:100%;
+    padding:12px;
+    border:2px solid #ddd;
+    border-radius:10px;
+    font-size:1rem;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#ff4f7a;
+    color:white;
+    font-size:1.1rem;
+    font-weight:bold;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>ONDE VOCÊ QUER SAIR COMIGO? ❤️</h1>
+
+    <div class="grid">
+
+        <div class="local" data-local="Casa">
+            <div class="emoji">🍣</div>
+            <div class="nome">SUSHI</div>
+        </div>
+
+        <div class="local" data-local="Shopping">
+            <div class="emoji">🛍️</div>
+            <div class="nome">SHOPPING</div>
+        </div>
+
+        <div class="local" data-local="Rogers">
+            <div class="emoji">🍔</div>
+            <div class="nome">LANCHONETE</div>
+        </div>
+
+        <div class="local" data-local="Duckbill">
+            <div class="emoji">☕</div>
+            <div class="nome">CAFETERIA</div>
+        </div>
+
+        <div class="local" data-local="Sorveteria">
+    <div class="emoji">🍦</div>
+    <div class="nome">SORVETERIA</div>
+</div>
+
+        <div class="local" data-local="Centro">
+            <div class="emoji">🏙️</div>
+            <div class="nome">CENTRO</div>
+        </div>
+
+    </div>
+
+    <div class="outro-local">
+        <label>Outro local:</label>
+        <input type="text" id="outroLocal" placeholder="Digite outro lugar...">
+    </div>
+
+    <button id="confirmarLocal">CONFIRMAR ❤️</button>
+
+</div>
+
+<script>
+
+let localSelecionado = "";
+
+const locais = document.querySelectorAll(".local");
+
+locais.forEach(local => {
+
+    local.addEventListener("click", () => {
+
+        locais.forEach(l => l.classList.remove("selecionado"));
+
+        local.classList.add("selecionado");
+
+        localSelecionado = local.dataset.local;
+    });
+
+});
+
+document.getElementById("confirmarLocal").addEventListener("click", () => {
+
+    const outro = document.getElementById("outroLocal").value.trim();
+
+    if(!localSelecionado && !outro){
+        alert("Escolha um local ou digite outro!");
+        return;
+    }
+
+    const localFinal = outro || localSelecionado;
+
+    localStorage.setItem("localEncontro", localFinal);
+
+    window.location.href = "confirmacao.html";
+});
+
+</script>
+
+</body>
+</html>
